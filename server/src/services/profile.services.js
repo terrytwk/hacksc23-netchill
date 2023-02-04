@@ -28,11 +28,11 @@ const updateProfile = async (
       profile_pic,
     },
   });
-  const deleteCareerTags = prisma.userToCareerTag.deleteMany({})
+  const deleteCareerTags = prisma.userToCareerTag.deleteMany({where: {user_id}})
   const createCareerTags = prisma.userToCareerTag.createMany({
     data: career_tags.map(tid => ({ user_id, tag_id: tid }))
   })
-  const deleteHobbyTags = prisma.userToHobbyTag.deleteMany({})
+  const deleteHobbyTags = prisma.userToHobbyTag.deleteMany({where: {user_id}})
   const createHobbyTags = prisma.userToHobbyTag.createMany({
     data: hobby_tags.map(tid => ({ user_id, tag_id: tid }))
   })
