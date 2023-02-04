@@ -43,6 +43,7 @@ dependencies:
   cached_network_image: ^3.2.3
   json_annotation: ^4.8.0
   json_serializable: ^6.6.1
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:

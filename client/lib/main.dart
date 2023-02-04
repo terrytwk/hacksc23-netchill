@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:netchill/pages/discover.dart';
+import 'package:netchill/pages/profile.dart';
+import 'package:netchill/pages/sign_in.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: SignInPage(),
     );
   }
 }
@@ -34,7 +36,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   final pages = [
     const DiscoverPage(),
     Text('index 2'),
-    Text('index 3'),
+    const ProfilePage(),
   ];
 
   @override

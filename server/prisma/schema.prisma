@@ -22,7 +22,9 @@ model User {
   phone Int?
   work_phone Int?
   bio String?
-  location String?
+  latitude Decimal?
+  longitude Decimal?
+  profile_pic String?
 
   links Link[] // unused for now
   career_tags UserToCareerTag[]
@@ -90,8 +92,7 @@ model UserToMatch {
 
 model Category {
   id Int @id @default(autoincrement())
-  user_id Int
-  description String
+  description String @unique
 
   contacts Contact[]
 }
@@ -100,11 +101,11 @@ model Contact {
   id Int @id @default(autoincrement())
   relating_user Int
   related_user Int
-  notes String
-  contact_frequency ContactFrequency
+  notes String?
+  contact_frequency ContactFrequency?
 
-  category Category @relation(fields: [category_id], references: [id])
-  category_id Int
+  category Category? @relation(fields: [category_id], references: [id])
+  category_id Int?
   match Match @relation(fields: [match_id], references: [id])
   match_id Int
 }

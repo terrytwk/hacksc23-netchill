@@ -8,9 +8,12 @@ const updateProfile = async (
   position,
   phone,
   work_phone,
-  bio
+  bio,
+  profile_pic,
+  career_tags,
+  hobby_tags
 ) => {
-  const updateProfile = await prisma.user.update({
+  const updateProfile = prisma.user.update({
     where: {
       id: user_id,
     },
@@ -22,10 +25,26 @@ const updateProfile = async (
       phone,
       work_phone,
       bio,
+      profile_pic,
     },
   });
+  const deleteCareerTags = prisma.userToCareerTag.deleteMany({where: {user_id}})
+  const createCareerTags = prisma.userToCareerTag.createMany({
+    data: career_tags.map(tid => ({ user_id, tag_id: tid }))
+  })
+  const deleteHobbyTags = prisma.userToHobbyTag.deleteMany({where: {user_id}})
+  const createHobbyTags = prisma.userToHobbyTag.createMany({
+    data: hobby_tags.map(tid => ({ user_id, tag_id: tid }))
+  })
+  const [profile, ..._] = await prisma.$transaction([
+    updateProfile,
+    deleteCareerTags,
+    createCareerTags,
+    deleteHobbyTags,
+    createHobbyTags
+  ])
 
-  return updateProfile;
+  return profile;
 };
 
 const getProfile = async (user_id) => {

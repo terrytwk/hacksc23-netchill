@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get("/tags", profileControllers.getAllTags);
 
-router.put("/me", profileControllers.updateProfile);
+router.put("/:userId", profileControllers.updateProfile);
 
 router.get("/:userId", profileControllers.getProfile);
 
