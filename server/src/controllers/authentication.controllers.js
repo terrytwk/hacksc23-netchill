@@ -1,15 +1,17 @@
-const signup = (req, res) => {
+const authServices = require('../services/authentication.services')
+
+const signup = async (req, res) => {
   const { email, password } = req.body;
 
-  // add user to database
+  const user = await authServices.signup(email, password);
 
   res.status(200).json({
     message: `Successfully signed up user with email: ${email}`,
-    token: "",
+    token: user,
   });
 };
 
-const login = (req, res) => {
+const login = async (req, res) => {
   const { email, password } = req.body;
 
   // check user with same email & password

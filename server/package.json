@@ -10,6 +10,8 @@
     "dev": "nodemon src/index.js",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
+    "db:reset": "prisma migrate reset",
+    "db:seed": "prisma db seed",
     "db:push": "prisma db push"
   },
   "dependencies": {
@@ -21,5 +23,8 @@
   "devDependencies": {
     "nodemon": "^2.0.20",
     "prisma": "^4.9.0"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   }
 }
