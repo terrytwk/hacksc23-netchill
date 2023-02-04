@@ -4,6 +4,7 @@ const logger = require("morgan");
 // import routers
 const AuthRouter = require("./routes/authentication.routes");
 const ProfileRouter = require("./routes/profile.routes");
+const DiscoverRouter = require("./routes/discover.routes");
 
 const app = express();
 app.use(express.json());
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 // use routers
 app.use("/api/v1/auth", AuthRouter);
 app.use("/api/v1/profile", ProfileRouter);
+app.use("/api/v1/discover", DiscoverRouter);
 
 const port = process.env.PORT || 5001;
 

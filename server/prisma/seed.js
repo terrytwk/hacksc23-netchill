@@ -24,7 +24,7 @@ const hobbyTags = [
   "Climbing",
   "Movies",
   "Singing",
-  "Game",
+  "Gaming",
   "Food discovery",
   "Workout",
   "Sports",
@@ -40,7 +40,7 @@ const categories = [
   "Acquaintance"
 ]
 
-async function main() {
+async function clearDatabase() {
   await prisma.contact.deleteMany({})
   await prisma.category.deleteMany({})
   await prisma.userToMatch.deleteMany({})
@@ -51,45 +51,29 @@ async function main() {
   await prisma.careerTag.deleteMany({})
   await prisma.hobbyTag.deleteMany({})
   await prisma.user.deleteMany({})
+}
+
+async function setupConstants() {
+  await Promise.all(careerTags.map((t) => prisma.careerTag.create({data: {name: t}})))
+  await Promise.all(hobbyTags.map((t) => prisma.hobbyTag.create({data: {name: t}})))
+  await Promise.all(categories.map((c) => prisma.category.create({data: {description: c}})))
+}
+
+async function main() {
+  await setupConstants()
+
   const testUser = await prisma.user.create({
     data: {
       email: "test@test.com",
       password: "password",
     }
   })
-  const asdfUser = await prisma.user.create({
-    data: {
-      email: "asdf@test.com",
-      password: "asdfasdf",
-    }
-  })
-  await Promise.all(careerTags.map((t) =>
-     prisma.careerTag.create({
-      data: {
-        name: t
-      }
-    })
-  ))
-  await Promise.all(hobbyTags.map((t) =>
-     prisma.hobbyTag.create({
-      data: {
-        name: t
-      }
-    })
-  ))
-  await Promise.all(categories.map((c) =>
-     prisma.category.create({
-      data: {
-        description: c
-      }
-    })
-  ))
-  const entrprnrshpTag = await prisma.careerTag.findUnique({
+  const testUserCareerTags = await prisma.careerTag.findUnique({
     where: {
       name: "Entrepreneurship"
     }
   })
-  const hTags = await prisma.hobbyTag.findMany({
+  const testUserHobbyTags = await prisma.hobbyTag.findMany({
     where: {
       OR: [
         { name: "Photography" },
@@ -109,12 +93,61 @@ async function main() {
     data: {
       career_tags: {
         create: {
-          tag_id: entrprnrshpTag.id
+          tag_id: testUserCareerTags.id
         }
       },
       hobby_tags: {
-        create: hTags.map(h => ({tag_id: h.id}))
+        create: testUserHobbyTags.map(h => ({tag_id: h.id}))
       }
+    }
+  })
+  const asdfUserCareerTags = await prisma.careerTag.findMany({
+    where: {
+      OR: [
+        { name: "Game programmer" },
+        { name: "Cybersecurity" },
+        { name: "IT" },
+        { name: "Entrepreneurship" }
+      ]
+    }
+  })
+  const asdfUserHobbyTags = await prisma.hobbyTag.findMany({
+    where: {
+      OR: [
+        { name: "Hacking" },
+        { name: "Workout" },
+        { name: "Gaming" },
+        { name: "Music" }
+      ]
+    }
+  })
+  const asdfUser = await prisma.user.create({
+    data: {
+      email: "asdf@test.com",
+      password: "asdfasdf",
+      career_tags: {
+        create: asdfUserCareerTags.map(h => ({tag_id: h.id}))
+      },
+      hobby_tags: {
+        create: asdfUserHobbyTags.map(h => ({tag_id: h.id}))
+      }
+    }
+  })
+  await prisma.user.create({
+    data: {
+      email: "noone@test.com",
+      password: "nothing",
+    }
+  })
+  const onlyEntrepreneurUser = await prisma.user.create({
+    data: {
+      email: "only-entrepreneur@test.com",
+      password: "testtest",
+      career_tags: {
+        create: {
+          tag_id: testUserCareerTags.id
+        }
+      },
     }
   })
 
@@ -129,16 +162,27 @@ async function main() {
       }
     }
   })
-  const matches = await prisma.user.findUnique({
+  const match2 = await prisma.match.create({
+    data: {
+      users: {
+        create: [
+          { user_id: testUser.id },
+          { user_id: onlyEntrepreneurUser.id }
+        ]
+      }
+    }
+  })
+  // retrieving matches
+  const matchSearch = await prisma.user.findUnique({
     where: {
       id: testUser.id
     },
     select: {
       matches: {
         select: {
-          match: {
+          match: { // get the match part of the UserToMatch relation
             select: {
-              users: {
+              users: { // get all users associated with the Match
                 where: {
                   user_id: {
                     not: testUser.id
@@ -154,9 +198,9 @@ async function main() {
       }
     }
   })
-  console.log(JSON.stringify(matches, null, 2));
-  console.log(matches.matches.map(m => m.match.users))
-  console.log(matches.matches.map(m => m.match.users[0].user)) // gives all matched users, assuming matches are 1-1
+  // console.log(JSON.stringify(matchSearch, null, 2));
+  // console.log(matchSearch.matches.map(m => m.match.users))
+  // console.log(matchSearch.matches.map(m => m.match.users[0].user)) // gives all matched users, assuming matches are 1-1
 
   const socialCtg = await prisma.category.findUnique({
     where: {
@@ -168,7 +212,7 @@ async function main() {
       {
         relating_user: testUser.id,
         related_user: asdfUser.id,
-        notes: "asdf is just soooo random :3",
+        notes: "A great companion to invite to the next party",
         contact_frequency: "ONE_MONTH",
         category_id: socialCtg.id,
         match_id: match.id
@@ -180,7 +224,7 @@ async function main() {
       {
         relating_user: asdfUser.id,
         related_user: testUser.id,
-        notes: "a decent fellow, bit awkward but still chill",
+        notes: "First met at HackSC",
         match_id: match.id
       }
     ]
