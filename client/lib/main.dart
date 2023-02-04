@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:netchill/pages/discover.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,7 +32,7 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomePageState extends ConsumerState<HomePage> {
   int _index = 0;
   final pages = [
-    Text('index 1'),
+    const DiscoverPage(),
     Text('index 2'),
     Text('index 3'),
   ];

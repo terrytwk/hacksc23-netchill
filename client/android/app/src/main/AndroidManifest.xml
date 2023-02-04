@@ -1,9 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.netchill">
+    package="app.netchill.app">
    <application
         android:label="netchill"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyARFF17NyasukIz4U_Erli6Ia6l8vGfX98"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

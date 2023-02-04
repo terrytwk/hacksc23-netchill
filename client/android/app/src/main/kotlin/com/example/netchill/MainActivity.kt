@@ -1,4 +1,4 @@
-package com.example.netchill
+package app.netchill.app
 
 import io.flutter.embedding.android.FlutterActivity
 
