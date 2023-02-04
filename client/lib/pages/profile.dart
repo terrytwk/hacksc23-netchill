@@ -96,7 +96,14 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                       hintText: 'Write a note...'),
                 )
               ])),
-          DropdownButtonExample()
+          Column(children: const [
+            SizedBox(height: 20),
+            Text("Reminder to contact frequency: ",
+                style: TextStyle(
+                  fontSize: 16,
+                )),
+            DropdownButtonExample()
+          ])
         ],
       ),
     );
