@@ -19,8 +19,8 @@ model User {
   last_name String?
   organization String?
   position String?
-  phone String?
-  work_phone String?
+  phone Int?
+  work_phone Int?
   bio String?
   location String?
 
