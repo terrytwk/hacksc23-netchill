@@ -76,10 +76,13 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
         height: drawerHeight,
-        child: Column(
-          children: const [
-            Expanded(child: _RequestsSection()),
-            Expanded(child: _NearbySection()),
+        child: CustomScrollView(
+          slivers: [
+            // _RequestsSection(),
+            _buildRequestsHeader(),
+            _buildRequests(),
+            _buildNearbyHeader(),
+            _buildNearby(),
           ],
         ),
       ),
@@ -103,6 +106,75 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
 
       /// drawer controller.
       controller: _bottomDrawerController,
+    );
+  }
+
+  Widget _buildRequestsHeader() {
+    final requests = ref.watch(requestsProvider);
+
+    return SliverToBoxAdapter(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text(
+            'Requests',
+            style: NetChillTextStyles.h2,
+          ),
+          const SizedBox(width: 10),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(100),
+            ),
+            child: Center(
+              child: Text(
+                '${requests.length}',
+                style: NetChillTextStyles.h3.copyWith(color: Colors.white),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRequests() {
+    final requests = ref.watch(requestsProvider);
+
+    return SliverFixedExtentList(
+      itemExtent: 100,
+      delegate: SliverChildBuilderDelegate((context, index) {
+        if (index < requests.length) {
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: ChillRequest(user: requests[index]),
+          );
+        }
+        return null;
+      }),
+    );
+  }
+
+  Widget _buildNearbyHeader() {
+    return const SliverToBoxAdapter(
+      child: Text(
+        'Nearby',
+        style: NetChillTextStyles.h2,
+      ),
+    );
+  }
+
+  Widget _buildNearby() {
+    final nearby = ref.watch(nearbyProvider);
+
+    return SliverGrid.count(
+      crossAxisCount: 2,
+      crossAxisSpacing: 8,
+      mainAxisSpacing: 8,
+      children: nearby.map((user) {
+        return NearbyCard(user: user);
+      }).toList(),
     );
   }
 }
@@ -164,20 +236,22 @@ class _NearbySection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final nearby = ref.watch(nearbyProvider);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Nearby',
-          style: NetChillTextStyles.h2,
+    return CustomScrollView(
+      // crossAxisAlignment: CrossAxisAlignment.start,
+      slivers: [
+        SliverToBoxAdapter(
+          child: const Text(
+            'Nearby',
+            style: NetChillTextStyles.h2,
+          ),
         ),
-        Expanded(child: _buildNearby(nearby)),
+        _buildNearby(nearby),
       ],
     );
   }
 
   Widget _buildNearby(List<User> nearby) {
-    return GridView.count(
+    return SliverGrid.count(
       crossAxisCount: 2,
       crossAxisSpacing: 8,
       mainAxisSpacing: 8,

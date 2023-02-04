@@ -24,6 +24,7 @@ class ChillRequest extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         // Profile pic
         UserAvatar(user: user, radius: 35),
@@ -31,6 +32,7 @@ class ChillRequest extends ConsumerWidget {
         // Info
         Flexible(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
