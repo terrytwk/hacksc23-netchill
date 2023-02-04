@@ -40,11 +40,16 @@ dependencies:
   requests: ^4.7.0
   google_maps_flutter: ^2.2.3
   bottom_drawer: ^0.0.5
+  cached_network_image: ^3.2.3
+  json_annotation: ^4.8.0
+  json_serializable: ^6.6.1
   get: ^4.6.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  build_runner: ^2.3.3
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

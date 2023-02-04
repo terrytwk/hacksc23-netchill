@@ -22,7 +22,8 @@ model User {
   phone Int?
   work_phone Int?
   bio String?
-  location String?
+  latitude Decimal?
+  longitude Decimal?
   profile_pic String?
 
   links Link[] // unused for now
