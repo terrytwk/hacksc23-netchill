@@ -70,7 +70,19 @@ async function main() {
       name: "Entrepreneurship"
     }
   })
-  console.log(entrprnrshpTag)
+  const hTags = await prisma.hobbyTag.findMany({
+    where: {
+      OR: [
+        { name: "Photography" },
+        { name: "Coffee" },
+        { name: "Workout" },
+        { name: "Hacking" }
+      ]
+    },
+    select: {
+      id: true
+    }
+  })
   await prisma.user.update({
     where: {
       id: testUser.id
@@ -80,6 +92,9 @@ async function main() {
         create: {
           tag_id: entrprnrshpTag.id
         }
+      },
+      hobby_tags: {
+        create: hTags.map(h => ({tag_id: h.id}))
       }
     }
   })

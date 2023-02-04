@@ -41,6 +41,7 @@ const updateProfile = async (req, res) => {
   });
 };
 
+// also retrieves career and hobby tags
 const getProfile = async (req, res) => {
   const { userId } = req.params;
 
