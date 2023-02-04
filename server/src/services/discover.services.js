@@ -22,12 +22,30 @@ const getNearby = async (id) => {
       }
     },
   })
-  // find all users that are nearby
+  // find all new users that are nearby
   const allUsers = await prisma.user.findMany({
     where: {
-      NOT: {
-        id
-      }
+      AND: [
+        {
+          NOT: {
+            id
+          }
+        },
+        {
+          matches: {
+            none: {
+              // looking at a considered person's matches, none may include the requester (ie. cannot match same people again)
+              match: {
+                users: {
+                  some: {
+                    user_id: id
+                  }
+                }
+              }
+            }
+          }
+        },
+      ]
     },
     select: {
       id: true,
@@ -97,4 +115,16 @@ const getNearby = async (id) => {
   return interestingUsers
 }
 
-module.exports = { getNearby };
+const updateLocation = async (id, latitude, longitude) => {
+  return await prisma.user.update({
+    where: {
+      id
+    },
+    data: {
+      latitude,
+      longitude
+    }
+  })
+}
+
+module.exports = { getNearby, updateLocation };

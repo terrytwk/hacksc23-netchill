@@ -9,7 +9,6 @@ const updateProfile = async (
   phone,
   work_phone,
   bio,
-  location,
   profile_pic,
   career_tags,
   hobby_tags
@@ -26,7 +25,6 @@ const updateProfile = async (
       phone,
       work_phone,
       bio,
-      location,
       profile_pic,
     },
   });
