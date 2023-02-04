@@ -1,47 +1,59 @@
-const getAllTags = (req, res) => {
-  // fetch all tags including career and hobby
+const profileServices = require("../services/profile.services");
+
+const getAllTags = async (req, res) => {
+  const careerTags = await profileServices.getCareerTags();
+  const hobbyTags = await profileServices.getHobbyTags();
 
   res.status(200).json({
     message: `fetched all the tags including career and hobby`,
     data: {
-      career: [],
-      hobby: [],
+      career: careerTags,
+      hobby: hobbyTags,
     },
   });
 };
 
-const createProfile = (req, res) => {
-  res.status(200).json({
-    message: "created profile",
-  });
-};
+const updateProfile = async (req, res) => {
+  const {
+    user_id,
+    first_name,
+    last_name,
+    organization,
+    position,
+    phone,
+    work_phone,
+    bio,
+  } = req.body;
 
-const getProfile = (req, res) => {
-  res.status(200).json({
-    message: "retrieved profile",
-    data: {},
-  });
-};
+  const updatedProfile = profileServices.updateProfile(
+    user_id,
+    first_name,
+    last_name,
+    organization,
+    position,
+    phone,
+    work_phone,
+    bio
+  );
 
-const updateProfile = (req, res) => {
   res.status(200).json({
     message: "updated profile",
   });
 };
 
-const getUser = (req, res) => {
+const getProfile = async (req, res) => {
   const { userId } = req.params;
+
+  const userProfile = await profileServices.getProfile(userId);
 
   res.status(200).json({
     message: `retrieved an user with user id: ${userId}`,
-    data: {},
+    data: userProfile,
   });
 };
 
 module.exports = {
   getAllTags,
-  createProfile,
-  getProfile,
   updateProfile,
-  getUser,
+  getProfile,
 };

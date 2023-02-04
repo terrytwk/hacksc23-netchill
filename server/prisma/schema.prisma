@@ -11,53 +11,53 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  email String @unique
-  password String
-  first_name String?
-  last_name String?
-  phone String?
-  work_phone String?
+  id           Int         @id @default(autoincrement())
+  email        String      @unique
+  password     String
+  first_name   String?
+  last_name    String?
+  phone        Int?
+  work_phone   Int?
   organization String?
-  position String?
-  bio String?
-  links Link[]
-  tags UserToTag[]
-  wifi_info String?
-  location String?
+  position     String?
+  bio          String?
+  links        Link[]
+  tags         UserToTag[]
+  wifi_info    String?
+  location     String?
 }
 
 model Link {
-  id Int @id @default(autoincrement())
-  link String
-  user User @relation(fields: [user_id], references: [id])
+  id      Int    @id @default(autoincrement())
+  link    String
+  user    User   @relation(fields: [user_id], references: [id])
   user_id Int
 }
 
 model Tag {
-  id Int @id @default(autoincrement())
-  name String
+  id    Int         @id @default(autoincrement())
+  name  String
   users UserToTag[]
 }
 
 model Category {
-  id Int @id @default(autoincrement())
-  user_id Int
+  id          Int    @id @default(autoincrement())
+  user_id     Int
   description String
 }
 
 model UserToTag {
-  user User @relation(fields: [user_id], references: [id])
+  user    User @relation(fields: [user_id], references: [id])
   user_id Int
-  tag Tag @relation(fields: [tag_id], references: [id])
-  tag_id Int
+  tag     Tag  @relation(fields: [tag_id], references: [id])
+  tag_id  Int
 
   @@id([user_id, tag_id])
 }
 
 model Match {
-  id Int @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
   initiator_id Int
-  acceptor_id Int
-  assignedAt DateTime @default(now())
+  acceptor_id  Int
+  assignedAt   DateTime @default(now())
 }
