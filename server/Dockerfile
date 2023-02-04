@@ -1,8 +1,7 @@
 FROM node:18-alpine
 WORKDIR /app
 COPY . .
-RUN yarn install --production
-RUN yarn global add prisma
+RUN yarn install
 RUN yarn run db:push
 RUN yarn run db:seed
 # CMD ["node", "src/index.js"]
