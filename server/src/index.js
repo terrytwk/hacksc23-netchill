@@ -1,6 +1,9 @@
 const express = require("express");
 const logger = require("morgan");
 
+// import routers
+const AuthRouter = require("./routes/authentication.routes");
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -12,6 +15,9 @@ app.get("/", (req, res) => {
     body: "server working",
   });
 });
+
+// use routers
+app.use("/api/v1/auth", AuthRouter);
 
 const port = process.env.PORT || 5001;
 
