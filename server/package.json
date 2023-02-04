@@ -1,0 +1,8 @@
+{
+  "name": "netchill",
+  "version": "1.0.0",
+  "description": "make networking more fun and engaging",
+  "main": "index.js",
+  "license": "UNLICENSED",
+  "private": true
+}
