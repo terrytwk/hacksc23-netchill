@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:netchill/components/my_button_to_mainpage.dart';
+import 'package:netchill/pages/select_interest.dart';
 import 'package:netchill/pages/sign_in.dart';
 import 'package:netchill/components/my_textfield_id.dart';
 import 'package:netchill/components/my_textfield_pwd.dart';
 import 'package:netchill/components/my_button_Id.dart';
 import 'package:flutter/gestures.dart';
 import 'package:netchill/components/my_button_sign_up.dart';
+import 'package:netchill/components/my_button_interest.dart';
 import 'package:netchill/components/my_textfield_setup.dart';
 import 'package:get/get.dart';
 
@@ -78,7 +80,7 @@ class SignUpPage2 extends StatelessWidget {
 
               // Don't Have an Account?
               SizedBox(height: 45),
-              MyButtonMainpage(
+              MyButtonInterest(
                 // need to work on button clicked -> verify the username & password
                 onTap: signUserIn,
               ),
