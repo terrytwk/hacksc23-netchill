@@ -11,53 +11,107 @@ datasource db {
 }
 
 model User {
-  id           Int         @id @default(autoincrement())
-  email        String      @unique
-  password     String
-  first_name   String?
-  last_name    String?
-  phone        Int?
-  work_phone   Int?
+  id Int @id @default(autoincrement())
+  email String @unique
+  password String
+
+  first_name String?
+  last_name String?
   organization String?
-  position     String?
-  bio          String?
-  links        Link[]
-  tags         UserToTag[]
-  wifi_info    String?
-  location     String?
+  position String?
+  phone Int?
+  work_phone Int?
+  bio String?
+  location String?
+
+  links Link[] // unused for now
+  career_tags UserToCareerTag[]
+  hobby_tags UserToHobbyTag[]
+  matches UserToMatch[]
 }
 
+// unused for now
 model Link {
-  id      Int    @id @default(autoincrement())
-  link    String
-  user    User   @relation(fields: [user_id], references: [id])
+  id Int @id @default(autoincrement())
+  link String
+
+  user User @relation(fields: [user_id], references: [id])
   user_id Int
 }
 
-model Tag {
-  id    Int         @id @default(autoincrement())
-  name  String
-  users UserToTag[]
+model CareerTag {
+  id Int @id @default(autoincrement())
+  name String @unique
+
+  users UserToCareerTag[]
 }
 
-model Category {
-  id          Int    @id @default(autoincrement())
-  user_id     Int
-  description String
-}
-
-model UserToTag {
-  user    User @relation(fields: [user_id], references: [id])
+model UserToCareerTag {
+  user User @relation(fields: [user_id], references: [id])
   user_id Int
-  tag     Tag  @relation(fields: [tag_id], references: [id])
-  tag_id  Int
+  tag CareerTag @relation(fields: [tag_id], references: [id])
+  tag_id Int
+
+  @@id([user_id, tag_id])
+}
+
+model HobbyTag {
+  id Int @id @default(autoincrement())
+  name String @unique
+
+  users UserToHobbyTag[]
+}
+
+model UserToHobbyTag {
+  user User @relation(fields: [user_id], references: [id])
+  user_id Int
+  tag HobbyTag @relation(fields: [tag_id], references: [id])
+  tag_id Int
 
   @@id([user_id, tag_id])
 }
 
 model Match {
-  id           Int      @id @default(autoincrement())
-  initiator_id Int
-  acceptor_id  Int
-  assignedAt   DateTime @default(now())
+  id Int @id @default(autoincrement())
+  assignedAt DateTime @default(now())
+
+  users UserToMatch[]
+  contacts Contact[]
+}
+
+model UserToMatch {
+  match Match @relation(fields: [match_id], references: [id])
+  match_id Int
+  user User @relation(fields: [user_id], references: [id])
+  user_id Int
+
+  @@id([match_id, user_id])
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  user_id Int
+  description String
+
+  contacts Contact[]
+}
+
+model Contact {
+  id Int @id @default(autoincrement())
+  relating_user Int
+  related_user Int
+  notes String
+  contact_frequency ContactFrequency
+
+  category Category @relation(fields: [category_id], references: [id])
+  category_id Int
+  match Match @relation(fields: [match_id], references: [id])
+  match_id Int
+}
+
+enum ContactFrequency {
+  ONE_MONTH
+  THREE_MONTHS
+  SIX_MONTHS
+  ONE_YEAR
 }

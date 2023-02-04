@@ -33,6 +33,18 @@ const getProfile = async (user_id) => {
     where: {
       id: parseInt(user_id),
     },
+    include: {
+      career_tags: {
+        select: {
+          tag: true
+        }
+      },
+      hobby_tags: {
+        select: {
+          tag: true
+        }
+      }
+    }
   });
 
   return profile;
@@ -46,4 +58,34 @@ const getHobbyTags = async () => {
   return await prisma.hobbyTag.findMany({});
 };
 
-module.exports = { updateProfile, getProfile, getCareerTags, getHobbyTags };
+const getUserCareerTags = async (id) => {
+  return await prisma.user.findUnique({
+    where: {
+      id
+    },
+    select: {
+      career_tags: {
+        select: {
+          tag: true
+        }
+      }
+    }
+  })
+}
+
+const getUserHobbyTags = async (id) => {
+  return await prisma.user.findUnique({
+    where: {
+      id
+    },
+    select: {
+      hobby_tags: {
+        select: {
+          tag: true
+        }
+      }
+    }
+  })
+}
+
+module.exports = { updateProfile, getProfile, getCareerTags, getHobbyTags, getUserCareerTags, getUserHobbyTags };
