@@ -23,9 +23,15 @@ const updateProfile = async (req, res) => {
     phone,
     work_phone,
     bio,
+    location,
+    profile_pic,
+    career_tags,
+    hobby_tags
   } = req.body;
 
-  const updatedProfile = profileServices.updateProfile(
+  // anything undefined gets left as is, anything null gets nullified
+  // pass in array of tag ids for career_tags and hobby_tags
+  const updatedProfile = await profileServices.updateProfile(
     user_id,
     first_name,
     last_name,
@@ -33,7 +39,11 @@ const updateProfile = async (req, res) => {
     position,
     phone,
     work_phone,
-    bio
+    bio,
+    location,
+    profile_pic,
+    career_tags,
+    hobby_tags
   );
 
   res.status(200).json({

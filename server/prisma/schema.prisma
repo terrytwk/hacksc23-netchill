@@ -23,6 +23,7 @@ model User {
   work_phone Int?
   bio String?
   location String?
+  profile_pic String?
 
   links Link[] // unused for now
   career_tags UserToCareerTag[]
