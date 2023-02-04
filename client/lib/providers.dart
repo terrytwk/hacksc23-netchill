@@ -22,3 +22,32 @@ final requestsProvider = StateProvider<List<User>>((ref) {
     ),
   ];
 });
+
+final nearbyProvider = StateProvider<List<User>>((ref) {
+  return [
+    const User(
+      firstName: 'Jonathan',
+      lastName: 'Liu',
+      position: 'Computer Science',
+      organization: 'USC',
+    ),
+    const User(
+      firstName: 'Emily',
+      lastName: 'Kleinman',
+      position: 'Computer Science',
+      organization: 'USC',
+    ),
+    const User(
+      firstName: 'Jonathan',
+      lastName: 'Liu',
+      position: 'Computer Science',
+      organization: 'USC',
+    ),
+    const User(
+      firstName: 'Emily',
+      lastName: 'Kleinman',
+      position: 'Computer Science',
+      organization: 'USC',
+    ),
+  ];
+});

@@ -7,17 +7,10 @@ import 'package:netchill/constants/text_styles.dart';
 import 'package:netchill/models/user.dart';
 
 class ChillRequest extends ConsumerWidget {
-  const ChillRequest({super.key, required this.user, this.onAccept});
+  const ChillRequest({super.key, required this.user, this.onAcceptRequest});
 
   final User user;
-  final VoidCallback? onAccept;
-
-  // final user = const User(
-  //   firstName: 'Jonathan',
-  //   lastName: 'Liu',
-  //   position: 'Computer Science',
-  //   organization: 'USC',
-  // );
+  final VoidCallback? onAcceptRequest;
 
   final _sharedInterests = const [
     'Photography',
@@ -60,7 +53,7 @@ class ChillRequest extends ConsumerWidget {
         IconButton(
           icon: const Icon(Icons.how_to_reg),
           color: NetChillColors.primary,
-          onPressed: onAccept,
+          onPressed: onAcceptRequest,
         ),
       ],
     );

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:netchill/components/chill_request.dart';
+import 'package:netchill/components/nearby_card.dart';
 import 'package:netchill/constants/colors.dart';
 import 'package:netchill/constants/text_styles.dart';
 import 'package:netchill/models/user.dart';
@@ -73,11 +74,12 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
 
       /// your customized drawer body.
       body: Container(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
         height: drawerHeight,
         child: Column(
-          children: [
+          children: const [
             Expanded(child: _RequestsSection()),
+            Expanded(child: _NearbySection()),
           ],
         ),
       ),
@@ -151,6 +153,37 @@ class _RequestsSection extends ConsumerWidget {
           child: ChillRequest(user: requests[index]),
         );
       },
+    );
+  }
+}
+
+class _NearbySection extends ConsumerWidget {
+  const _NearbySection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final nearby = ref.watch(nearbyProvider);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Nearby',
+          style: NetChillTextStyles.h2,
+        ),
+        Expanded(child: _buildNearby(nearby)),
+      ],
+    );
+  }
+
+  Widget _buildNearby(List<User> nearby) {
+    return GridView.count(
+      crossAxisCount: 2,
+      crossAxisSpacing: 8,
+      mainAxisSpacing: 8,
+      children: nearby.map((user) {
+        return NearbyCard(user: user);
+      }).toList(),
     );
   }
 }
