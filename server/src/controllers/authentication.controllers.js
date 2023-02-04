@@ -1,4 +1,4 @@
-const authServices = require('../services/authentication.services')
+const authServices = require("../services/authentication.services");
 
 const signup = async (req, res) => {
   const { email, password } = req.body;
@@ -6,7 +6,7 @@ const signup = async (req, res) => {
   const user = await authServices.signup(email, password);
 
   res.status(200).json({
-    message: `Successfully signed up user with email: ${email}`,
+    message: `signed up user with email: ${email}`,
     token: user,
   });
 };
@@ -14,12 +14,18 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  // check user with same email & password
+  const user = await authServices.login(email, password);
 
-  res.status(200).json({
-    message: `Successfully logged in user with email: ${email}`,
-    token: "",
-  });
+  if (user) {
+    res.status(200).json({
+      message: `logged in user with email: ${email}`,
+      token: user,
+    });
+  } else {
+    res.status(401).json({
+      message: "invalid email or password",
+    });
+  }
 };
 
 module.exports = { signup, login };
