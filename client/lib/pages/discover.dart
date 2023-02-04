@@ -2,7 +2,9 @@ import 'package:bottom_drawer/bottom_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:netchill/components/chill_request.dart';
 import 'package:netchill/constants/colors.dart';
+import 'package:netchill/constants/text_styles.dart';
 
 class DiscoverPage extends ConsumerStatefulWidget {
   const DiscoverPage({super.key});
@@ -97,7 +99,37 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
 
       /// your customized drawer body.
       body: Container(
-        child: SizedBox(child: const Text('hello body')),
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  'Requests',
+                  style: NetChillTextStyles.h3,
+                ),
+                const SizedBox(width: 10),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Center(
+                    child: Text(
+                      '4',
+                      style:
+                          NetChillTextStyles.h3.copyWith(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const ChillRequest(),
+          ],
+        ),
       ),
 
       /// your customized drawer header height.
@@ -108,7 +140,14 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
 
       /// drawer background color.
       color: Colors.white,
-      boxShadow: [],
+      boxShadow: const [
+        BoxShadow(
+          color: Color(0x40000000),
+          offset: Offset(0, -1),
+          blurRadius: 4,
+          spreadRadius: 0.0,
+        ),
+      ],
 
       /// drawer controller.
       controller: _controller,
