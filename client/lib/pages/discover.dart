@@ -5,6 +5,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:netchill/components/chill_request.dart';
 import 'package:netchill/constants/colors.dart';
 import 'package:netchill/constants/text_styles.dart';
+import 'package:netchill/models/user.dart';
+import 'package:netchill/providers.dart';
 
 class DiscoverPage extends ConsumerStatefulWidget {
   const DiscoverPage({super.key});
@@ -16,19 +18,9 @@ class DiscoverPage extends ConsumerStatefulWidget {
 class _DiscoverPageState extends ConsumerState<DiscoverPage> {
   late GoogleMapController _mapController;
   final LatLng _center = const LatLng(45.521563, -122.677433);
-  BottomDrawerController _controller = BottomDrawerController();
-  double? _height;
 
-  @override
-  void initState() {
-    super.initState();
-    // Future.delayed(Duration(milliseconds: 100), () => _showBottomSheet());
-    /// create a bottom drawer controller to control the drawer.
-    Future.delayed(
-      Duration(milliseconds: 100),
-      () => setState(() => _height = MediaQuery.of(context).size.height),
-    );
-  }
+  final BottomDrawerController _bottomDrawerController =
+      BottomDrawerController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,24 +43,6 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
 
   void _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
-  }
-
-  void _showBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      isDismissible: false,
-      // useSafeArea: true,
-      enableDrag: true,
-      builder: (context) {
-        return Column(
-          children: [
-            const Text('hello there'),
-            const SizedBox(height: 100),
-            const Text('what what'),
-          ],
-        );
-      },
-    );
   }
 
   Widget _buildBottomDrawer() {
@@ -100,34 +74,10 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
       /// your customized drawer body.
       body: Container(
         padding: const EdgeInsets.all(32),
+        height: drawerHeight,
         child: Column(
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  'Requests',
-                  style: NetChillTextStyles.h3,
-                ),
-                const SizedBox(width: 10),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: Center(
-                    child: Text(
-                      '4',
-                      style:
-                          NetChillTextStyles.h3.copyWith(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const ChillRequest(),
+            Expanded(child: _RequestsSection()),
           ],
         ),
       ),
@@ -150,7 +100,57 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
       ],
 
       /// drawer controller.
-      controller: _controller,
+      controller: _bottomDrawerController,
+    );
+  }
+}
+
+class _RequestsSection extends ConsumerWidget {
+  const _RequestsSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final requests = ref.watch(requestsProvider);
+
+    return Column(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              'Requests',
+              style: NetChillTextStyles.h2,
+            ),
+            const SizedBox(width: 10),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(100),
+              ),
+              child: Center(
+                child: Text(
+                  '${requests.length}',
+                  style: NetChillTextStyles.h3.copyWith(color: Colors.white),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Expanded(child: _buildRequests(requests)),
+      ],
+    );
+  }
+
+  Widget _buildRequests(List<User> requests) {
+    return ListView.builder(
+      itemCount: requests.length,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: ChillRequest(user: requests[index]),
+        );
+      },
     );
   }
 }
