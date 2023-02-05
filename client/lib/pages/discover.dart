@@ -92,7 +92,9 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
       ),
     };
 
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
