@@ -17,7 +17,7 @@ class MyButtonSignUp extends StatelessWidget {
         );
       },
       child: Container(
-        padding: EdgeInsets.all(25),
+        padding: EdgeInsets.all(20),
         margin: EdgeInsets.symmetric(horizontal: 35),
         decoration: BoxDecoration(
           color: Colors.blue[900],
@@ -25,7 +25,7 @@ class MyButtonSignUp extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            "Continue",
+            "CONTINUE",
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,

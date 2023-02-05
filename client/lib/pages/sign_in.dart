@@ -4,9 +4,8 @@ import 'package:netchill/components/my_textfield_id.dart';
 import 'package:netchill/components/my_textfield_pwd.dart';
 import 'package:netchill/components/my_button_Id.dart';
 import 'package:flutter/gestures.dart';
-import 'package:netchill/components/my_button_sign_up.dart';
-import 'package:netchill/pages/sign_up_2.dart';
 import 'package:get/get.dart';
+import 'package:netchill/components/divider_text.dart';
 
 class SignInPage extends StatelessWidget {
   SignInPage({super.key});
@@ -48,12 +47,12 @@ class SignInPage extends StatelessWidget {
               SizedBox(height: 35),
               MyTextFieldId(
                 controller: usernameController,
-                hintText: 'Email Address',
+                hintText: 'Email',
                 obscureText: false,
               ),
 
               // Password Textfield
-              SizedBox(height: 25),
+              SizedBox(height: 10),
               MyTextFieldPassword(
                 controller: passwordController,
                 hintText: 'Password',
@@ -61,7 +60,7 @@ class SignInPage extends StatelessWidget {
               ),
 
               // Sign In Button
-              SizedBox(height: 45),
+              SizedBox(height: 20),
 
               MyButtonId(
                 // need to work on button clicked -> verify the username & password
@@ -69,12 +68,12 @@ class SignInPage extends StatelessWidget {
               ),
 
               // Don't Have an Account?
-              SizedBox(height: 45),
+              SizedBox(height: 25),
 
               RichText(
                 text: TextSpan(
                     text: "Don't have an account?",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
                       fontFamily: 'DMsans',
@@ -84,8 +83,8 @@ class SignInPage extends StatelessWidget {
                         text: " Sign Up",
                         style: TextStyle(
                             color: Colors.blue.shade900,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => Navigator.of(context).push(
                                 MaterialPageRoute(
@@ -94,6 +93,13 @@ class SignInPage extends StatelessWidget {
                               ),
                       ),
                     ]),
+              ),
+              const SizedBox(height: 20),
+              const HorizontalOrLine(height: 10, label: "OR"),
+              const SizedBox(height: 20),
+              Image.network(
+                'https://i.stack.imgur.com/mKpeu.png',
+                height: 45,
               ),
               // need to be added
             ],

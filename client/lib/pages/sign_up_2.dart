@@ -55,21 +55,21 @@ class SignUpPage2 extends StatelessWidget {
                 obscureText: false,
               ),
 
-              SizedBox(height: 35),
+              SizedBox(height: 10),
               MyTextFieldSetup(
                 controller: lastnameController,
                 hintText: 'Last Name',
                 obscureText: false,
               ),
 
-              SizedBox(height: 35),
+              SizedBox(height: 10),
               MyTextFieldSetup(
                 controller: positionController,
                 hintText: 'Position',
                 obscureText: false,
               ),
 
-              SizedBox(height: 35),
+              SizedBox(height: 10),
               MyTextFieldSetup(
                 controller: organizationController,
                 hintText: 'Organization',
@@ -77,13 +77,13 @@ class SignUpPage2 extends StatelessWidget {
               ),
 
               // Don't Have an Account?
-              SizedBox(height: 45),
+              SizedBox(height: 20),
               MyButtonMainpage(
                 // need to work on button clicked -> verify the username & password
                 onTap: signUserIn,
               ),
 
-              SizedBox(height: 45),
+              SizedBox(height: 25),
               RichText(
                 text: TextSpan(
                     text: "Already have an account?",
@@ -97,8 +97,8 @@ class SignUpPage2 extends StatelessWidget {
                         text: " Sign In",
                         style: TextStyle(
                             color: Colors.blue.shade900,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => Navigator.of(context).push(
                                 MaterialPageRoute(
