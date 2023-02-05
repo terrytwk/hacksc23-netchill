@@ -182,6 +182,7 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
       crossAxisCount: 2,
       crossAxisSpacing: 8,
       mainAxisSpacing: 8,
+      childAspectRatio: 0.65,
       children: nearby.map((user) {
         return NearbyCard(user: user);
       }).toList(),
