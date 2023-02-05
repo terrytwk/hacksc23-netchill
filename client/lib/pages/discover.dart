@@ -78,7 +78,6 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
         height: drawerHeight,
         child: CustomScrollView(
           slivers: [
-            // _RequestsSection(),
             _buildRequestsHeader(),
             _buildRequests(),
             _buildNearbyHeader(),
@@ -168,89 +167,6 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
   Widget _buildNearby() {
     final nearby = ref.watch(nearbyProvider);
 
-    return SliverGrid.count(
-      crossAxisCount: 2,
-      crossAxisSpacing: 8,
-      mainAxisSpacing: 8,
-      children: nearby.map((user) {
-        return NearbyCard(user: user);
-      }).toList(),
-    );
-  }
-}
-
-class _RequestsSection extends ConsumerWidget {
-  const _RequestsSection();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final requests = ref.watch(requestsProvider);
-
-    return Column(
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text(
-              'Requests',
-              style: NetChillTextStyles.h2,
-            ),
-            const SizedBox(width: 10),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: Center(
-                child: Text(
-                  '${requests.length}',
-                  style: NetChillTextStyles.h3.copyWith(color: Colors.white),
-                ),
-              ),
-            ),
-          ],
-        ),
-        Expanded(child: _buildRequests(requests)),
-      ],
-    );
-  }
-
-  Widget _buildRequests(List<User> requests) {
-    return ListView.builder(
-      itemCount: requests.length,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 20),
-          child: ChillRequest(user: requests[index]),
-        );
-      },
-    );
-  }
-}
-
-class _NearbySection extends ConsumerWidget {
-  const _NearbySection();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final nearby = ref.watch(nearbyProvider);
-
-    return CustomScrollView(
-      // crossAxisAlignment: CrossAxisAlignment.start,
-      slivers: [
-        SliverToBoxAdapter(
-          child: const Text(
-            'Nearby',
-            style: NetChillTextStyles.h2,
-          ),
-        ),
-        _buildNearby(nearby),
-      ],
-    );
-  }
-
-  Widget _buildNearby(List<User> nearby) {
     return SliverGrid.count(
       crossAxisCount: 2,
       crossAxisSpacing: 8,
