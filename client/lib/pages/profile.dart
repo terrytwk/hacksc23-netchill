@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:netchill/components/profile_pic.dart';
 import 'package:netchill/constants/colors.dart';
 import 'package:netchill/components/contact_time_dropdown.dart';
+import 'package:netchill/components/interests_text.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({super.key});
@@ -24,7 +25,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       "Hello! I am passionate about mobile app dev and meeting new people!";
   int phone = 2131234567;
   String profilePic =
-      "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg";
+      "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOSGCu-HnDnwFi3UOu-mCUS9m7LIx_biZ-ElPay5yOwbY7BvfVCszj8KTO6RnApKKKxQVslYlHdJK8YOTwNM9kxU53mW=w2548-h1906";
   List<String> careerTags = ["web dev", "cyber security", "cloud"];
   List<String> hobbyTags = ["exercise", "hiking"];
 
@@ -47,17 +48,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           const SizedBox(height: 24),
           buildName(firstName, lastName, position, organization),
           const SizedBox(height: 10),
-          Text(
-            'interested in ${(careerTags + hobbyTags).sublist(0, 3).asMap().entries.map((t) {
-              return t.value;
-            })}, and ${(careerTags + hobbyTags).length - 3} more'
-                .replaceFirst("(", "")
-                .replaceFirst(")", ""),
-            style: const TextStyle(
-              fontSize: 12,
-            ),
-            textAlign: TextAlign.center,
-          ),
+          InterestsText(interests: careerTags + hobbyTags),
           Padding(
             padding: const EdgeInsets.symmetric(
                 horizontal: 20, vertical: 15), //apply padding to all four sides

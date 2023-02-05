@@ -18,7 +18,7 @@ class DiscoverPage extends ConsumerStatefulWidget {
 
 class _DiscoverPageState extends ConsumerState<DiscoverPage> {
   late GoogleMapController _mapController;
-  final LatLng _center = const LatLng(45.521563, -122.677433);
+  final LatLng _center = const LatLng(34.0224, -118.2851);
 
   final BottomDrawerController _bottomDrawerController =
       BottomDrawerController();
@@ -33,7 +33,7 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
             onMapCreated: _onMapCreated,
             initialCameraPosition: CameraPosition(
               target: _center,
-              zoom: 11,
+              zoom: 20,
             ),
           ),
           _buildBottomDrawer(),
