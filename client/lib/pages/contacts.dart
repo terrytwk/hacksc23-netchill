@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:netchill/components/contact.dart';
 import 'package:netchill/providers.dart';
 import 'package:netchill/constants/colors.dart';
+import 'package:netchill/servicese/local_notification_service.dart';
 
 class ContactsPage extends ConsumerStatefulWidget {
   const ContactsPage({super.key});
@@ -12,6 +13,15 @@ class ContactsPage extends ConsumerStatefulWidget {
 }
 
 class _ContactsPageState extends ConsumerState<ContactsPage> {
+  late final LocalNotificationService service;
+
+  @override
+  void initState() {
+    service = LocalNotificationService();
+    service.initialize();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +57,16 @@ class _ContactsPageState extends ConsumerState<ContactsPage> {
               ],
             ),
           ),
+          ElevatedButton(
+              onPressed: () async {
+                await service.showScheduleNOtification(
+                    id: 0,
+                    title: "NetChilling Time!",
+                    body:
+                        "We found people nearby that you might be interested in talking to ✌️",
+                    seconds: 5);
+              },
+              child: const Text("Show Local Notification"))
         ],
       ),
     );
