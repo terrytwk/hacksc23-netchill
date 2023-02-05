@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:netchill/components/finding_avatar.dart';
 import 'package:netchill/constants/text_styles.dart';
+import 'package:netchill/main.dart';
+import 'package:netchill/models/user.dart';
 import 'package:netchill/pages/sign_up.dart';
 import 'package:netchill/components/my_textfield_id.dart';
 import 'package:netchill/components/my_textfield_pwd.dart';
@@ -9,12 +12,20 @@ import 'package:get/get.dart';
 import 'package:netchill/components/divider_text.dart';
 
 class FightOnPage extends StatelessWidget {
-  FightOnPage({super.key});
+  FightOnPage({super.key, required this.user});
+
+  final User user;
 
   // text editing controllers
 
   // sign user in
-  void signUserIn() {}
+  void signUserIn(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const HomePage(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +35,11 @@ class FightOnPage extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              SizedBox(height: 400),
+              FindingAvatar(user: user),
+              Spacer(),
+              SizedBox(
+                height: 20,
+              ),
               Text("✌️",
                   style: TextStyle(
                     fontSize: 130,
@@ -46,11 +61,11 @@ class FightOnPage extends StatelessWidget {
 
               // Username Textfield
 
-              SizedBox(height: 120),
+              Spacer(),
 
               MyButtonGoBack(
                 // need to work on button clicked -> verify the username & password
-                onTap: signUserIn,
+                onTap: () => signUserIn(context),
               ),
 
               // Don't Have an Account?

@@ -13,6 +13,7 @@ import 'package:netchill/constants/colors.dart';
 import 'package:netchill/constants/constants.dart';
 import 'package:netchill/constants/text_styles.dart';
 import 'package:netchill/models/user.dart';
+import 'package:netchill/pages/fighton.dart';
 // import 'package:clippy_flutter/triangle.dart';
 import 'package:netchill/providers.dart';
 import 'package:screenshot/screenshot.dart';
@@ -248,7 +249,16 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
         if (index < requests.length) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 20),
-            child: ChillRequest(user: requests[index]),
+            child: ChillRequest(
+              onAcceptRequest: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => FightOnPage(user: requests[index]),
+                  ),
+                );
+              },
+              user: requests[index],
+            ),
           );
         }
         return null;

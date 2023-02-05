@@ -18,7 +18,7 @@ class MyButtonGoBack extends StatelessWidget {
         ),
         child: const Center(
           child: Text(
-            "Back To Home",
+            "We found each other",
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
