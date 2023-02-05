@@ -11,7 +11,8 @@ class Contact extends ConsumerWidget {
   final User user;
   final VoidCallback? onAcceptRequest;
 
-  List<String> tags = ["Professional", "Startup"];
+  List<String> tags1 = ["Professional", "Startup"];
+  List<String> tags2 = ["Social", "Startup"];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,14 +46,20 @@ class Contact extends ConsumerWidget {
   }
 
   Widget tag() => Row(
-        children: tags
+        children: (user.firstName == "Jonathan" ? tags1 : tags2)
             .map((t) => Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                   margin: const EdgeInsets.symmetric(horizontal: 5),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
-                    color: Colors.green[200],
+                    color: user.firstName == "Jonathan"
+                        ? (t == "Professional"
+                            ? Colors.blue[200]
+                            : Colors.orange[200])
+                        : (t == "Social"
+                            ? Colors.green[200]
+                            : Colors.orange[200]),
                   ),
                   child: Text(t),
                 ))
