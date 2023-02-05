@@ -11,10 +11,3 @@ services:
       - 5432:5432
     volumes:
       - ./data/:/var/lib/postgresql/data
-  server:
-    container_name: netchillServer
-    image: terrytwk/netchill-server
-    environment:
-      - DATABASE_URL
-    ports:
-      - 5001:5001
