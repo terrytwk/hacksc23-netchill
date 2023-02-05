@@ -6,12 +6,15 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:netchill/components/chill_request.dart';
 import 'package:netchill/components/nearby_card.dart';
 import 'package:netchill/components/person_info.dart';
+import 'package:netchill/components/user_avatar.dart';
+import 'package:netchill/components/user_marker.dart';
 import 'package:netchill/constants/colors.dart';
 import 'package:netchill/constants/constants.dart';
 import 'package:netchill/constants/text_styles.dart';
 import 'package:netchill/models/user.dart';
 // import 'package:clippy_flutter/triangle.dart';
 import 'package:netchill/providers.dart';
+import 'package:screenshot/screenshot.dart';
 
 class DiscoverPage extends ConsumerStatefulWidget {
   const DiscoverPage({super.key});
@@ -30,6 +33,12 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
   final LatLng _clementPos =
       const LatLng(34.01961185345555, -118.28695344995721);
 
+  BitmapDescriptor? _jonathanIcon;
+  BitmapDescriptor? _ericIcon;
+  BitmapDescriptor? _clementIcon;
+
+  Set<Marker> _markers = {};
+
   final BottomDrawerController _bottomDrawerController =
       BottomDrawerController();
   final ScrollController _bottomDrawerScrollController = ScrollController();
@@ -42,6 +51,48 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
         _bottomDrawerController.close();
       }
     });
+
+    _init();
+  }
+
+  Future<void> _init() async {
+    final icons = await Future.wait([
+      getMarkerIconForUser(NetChillConstants.jonathanUser),
+      getMarkerIconForUser(NetChillConstants.ericUser),
+      getMarkerIconForUser(NetChillConstants.clementUser)
+    ]);
+    _jonathanIcon = icons[0];
+    _ericIcon = icons[1];
+    _clementIcon = icons[2];
+
+    _markers = {
+      Marker(
+        position: _jonathanPos,
+        markerId: const MarkerId('jonathan marker'),
+        icon: _jonathanIcon!,
+        onTap: () {
+          _showInfoWindow(_jonathanPos, NetChillConstants.jonathanUser);
+        },
+      ),
+      Marker(
+        position: _ericPos,
+        markerId: const MarkerId('eric marker'),
+        icon: _ericIcon!,
+        onTap: () {
+          _showInfoWindow(_ericPos, NetChillConstants.ericUser);
+        },
+      ),
+      Marker(
+        position: _clementPos,
+        markerId: const MarkerId('clement marker'),
+        icon: _clementIcon!,
+        onTap: () {
+          _showInfoWindow(_clementPos, NetChillConstants.clementUser);
+        },
+      ),
+    };
+
+    setState(() {});
   }
 
   @override
@@ -69,35 +120,13 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
               target: _center,
               zoom: 17,
             ),
-            markers: {
-              Marker(
-                position: _jonathanPos,
-                markerId: const MarkerId('jonathan marker'),
-                onTap: () {
-                  _showInfoWindow(_jonathanPos, NetChillConstants.jonathanUser);
-                },
-              ),
-              Marker(
-                position: _ericPos,
-                markerId: const MarkerId('eric marker'),
-                onTap: () {
-                  _showInfoWindow(_ericPos, NetChillConstants.ericUser);
-                },
-              ),
-              Marker(
-                position: _clementPos,
-                markerId: const MarkerId('clement marker'),
-                onTap: () {
-                  _showInfoWindow(_clementPos, NetChillConstants.clementUser);
-                },
-              ),
-            },
+            markers: _markers,
           ),
           CustomInfoWindow(
             controller: _customInfoWindowController,
             height: 140,
             width: 200,
-            offset: 50,
+            offset: 65,
           ),
           _buildBottomDrawer(),
         ],
