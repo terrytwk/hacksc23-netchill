@@ -22,11 +22,21 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
 
   final BottomDrawerController _bottomDrawerController =
       BottomDrawerController();
+  final ScrollController _bottomDrawerScrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _bottomDrawerScrollController.addListener(() {
+      if (_bottomDrawerScrollController.offset < 0) {
+        _bottomDrawerController.close();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // body: _buildBottomDrawer(),
       body: Stack(
         children: [
           GoogleMap(
@@ -77,6 +87,7 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
         padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
         height: drawerHeight,
         child: CustomScrollView(
+          controller: _bottomDrawerScrollController,
           slivers: [
             _buildRequestsHeader(),
             _buildRequests(),
