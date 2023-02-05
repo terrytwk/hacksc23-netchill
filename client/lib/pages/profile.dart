@@ -4,9 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:netchill/components/profile_pic.dart';
 import 'package:netchill/constants/colors.dart';
 import 'package:netchill/components/contact_time_dropdown.dart';
+import 'package:netchill/components/interests_text.dart';
+import 'package:netchill/models/user.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({super.key, required this.user});
+
+  final User user;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ProfilePageState();
@@ -15,18 +19,18 @@ class ProfilePage extends ConsumerStatefulWidget {
 class _ProfilePageState extends ConsumerState<ProfilePage> {
   BottomDrawerController _controller = BottomDrawerController();
 
-  String email = "test@test.com";
-  String firstName = "Terry";
-  String lastName = "Kim";
-  String organization = "USC";
-  String position = "student";
-  String bio =
-      "Hello! I am passionate about mobile app dev and meeting new people!";
-  int phone = 2131234567;
-  String profilePic =
-      "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg";
-  List<String> careerTags = ["web dev", "cyber security", "cloud"];
-  List<String> hobbyTags = ["exercise", "hiking"];
+  // String email = "test@test.com";
+  // String firstName = "Terry";
+  // String lastName = "Kim";
+  // String organization = "USC";
+  // String position = "student";
+  // String bio =
+  //     "Hello! I am passionate about mobile app dev and meeting new people!";
+  // int phone = 2131234567;
+  // String profilePic =
+  //     "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOSGCu-HnDnwFi3UOu-mCUS9m7LIx_biZ-ElPay5yOwbY7BvfVCszj8KTO6RnApKKKxQVslYlHdJK8YOTwNM9kxU53mW=w2548-h1906";
+  // List<String> careerTags = ["web dev", "cyber security", "cloud"];
+  // List<String> hobbyTags = ["exercise", "hiking"];
 
   @override
   void initState() {
@@ -41,27 +45,18 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
         children: [
           const SizedBox(height: 70),
           ProfilePic(
-            imagePath: profilePic,
+            imagePath: widget.user.profilePic,
             onClicked: () async {},
           ),
           const SizedBox(height: 24),
-          buildName(firstName, lastName, position, organization),
+          buildName(widget.user.firstName, widget.user.lastName,
+              widget.user.position, widget.user.organization),
           const SizedBox(height: 10),
-          Text(
-            'interested in ${(careerTags + hobbyTags).sublist(0, 3).asMap().entries.map((t) {
-              return t.value;
-            })}, and ${(careerTags + hobbyTags).length - 3} more'
-                .replaceFirst("(", "")
-                .replaceFirst(")", ""),
-            style: const TextStyle(
-              fontSize: 12,
-            ),
-            textAlign: TextAlign.center,
-          ),
+          InterestsText(interests: widget.user.interests),
           Padding(
             padding: const EdgeInsets.symmetric(
                 horizontal: 20, vertical: 15), //apply padding to all four sides
-            child: Text(bio,
+            child: Text(widget.user.bio,
                 style: const TextStyle(
                   fontSize: 16,
                 ),
@@ -69,11 +64,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           ),
           buildInfo(
             Icons.email_outlined,
-            email,
+            widget.user.email,
           ),
           buildInfo(
             Icons.phone_outlined,
-            "(${phone.toString().substring(0, 3)}) - ${phone.toString().substring(3, 6)} - ${phone.toString().substring(6)}",
+            "(${widget.user.phone.toString().substring(0, 3)}) - ${widget.user.phone.toString().substring(3, 6)} - ${widget.user.phone.toString().substring(6)}",
           ),
           Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),

@@ -11,15 +11,6 @@ class NearbyCard extends ConsumerWidget {
   final User user;
   final VoidCallback? onSendRequest;
 
-  final _sharedInterests = const [
-    'Photography',
-    'Art',
-    'Singing',
-    'Reading',
-    'Dancing',
-    'Movies',
-  ];
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
@@ -28,7 +19,7 @@ class NearbyCard extends ConsumerWidget {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: NetChillColors.gray, width: 1),
       ),
-      height: 300,
+      // height: 600,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -46,9 +37,8 @@ class NearbyCard extends ConsumerWidget {
   Widget _buildProfilePic() {
     // return Container(color: Colors.white, height: 30);
     return FittedBox(
-      child: Image.network(
-          'https://lh3.googleusercontent.com/a/AEdFTp4mkutWtutb0wUUADDs9blkDZWQToS6rytEXv2i0Sk=s64-p-k-rw-no'),
       fit: BoxFit.cover,
+      child: Image.network(user.profilePic),
     );
   }
 
@@ -74,7 +64,22 @@ class NearbyCard extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 4),
-          InterestsText(interests: _sharedInterests)
+          InterestsText(interests: user.interests),
+          const Spacer(),
+          Container(
+            decoration: BoxDecoration(
+              color: NetChillColors.primary,
+              borderRadius: BorderRadius.circular(100),
+            ),
+            height: 40,
+            width: double.infinity,
+            child: Center(
+              child: Text(
+                'Let\'s chill!',
+                style: NetChillTextStyles.button.copyWith(color: Colors.white),
+              ),
+            ),
+          ),
         ],
       ),
     );

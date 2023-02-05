@@ -13,18 +13,18 @@ class MyButtonMainpage extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => HomePage(),
+            builder: (context) => const HomePage(),
           ),
         );
       },
       child: Container(
-        padding: EdgeInsets.all(20),
-        margin: EdgeInsets.symmetric(horizontal: 35),
+        padding: const EdgeInsets.all(20),
+        margin: const EdgeInsets.symmetric(horizontal: 35),
         decoration: BoxDecoration(
           color: Colors.blue[900],
           borderRadius: BorderRadius.circular(50),
         ),
-        child: Center(
+        child: const Center(
           child: Text(
             "Let's Chill",
             style: TextStyle(

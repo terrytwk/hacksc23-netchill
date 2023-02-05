@@ -12,15 +12,6 @@ class ChillRequest extends ConsumerWidget {
   final User user;
   final VoidCallback? onAcceptRequest;
 
-  final _sharedInterests = const [
-    'Photography',
-    'Art',
-    'Singing',
-    'Reading',
-    'Dancing',
-    'Movies',
-  ];
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Row(
@@ -45,7 +36,7 @@ class ChillRequest extends ConsumerWidget {
                     .copyWith(color: NetChillColors.gray),
               ),
               InterestsText(
-                interests: _sharedInterests,
+                interests: user.interests,
               ),
             ],
           ),
