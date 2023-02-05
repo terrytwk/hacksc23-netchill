@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:netchill/main.dart';
 import 'package:netchill/pages/select_interest.dart';
 
-class MyButtonMainpage extends StatelessWidget {
+class MyButtonInterest extends StatelessWidget {
   final Function() onTap;
 
-  const MyButtonMainpage({super.key, required this.onTap});
+  const MyButtonInterest({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +13,12 @@ class MyButtonMainpage extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => HomePage(),
+            builder: (context) => InterestPage(),
           ),
         );
       },
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(25),
         margin: EdgeInsets.symmetric(horizontal: 35),
         decoration: BoxDecoration(
           color: Colors.blue[900],
@@ -26,11 +26,11 @@ class MyButtonMainpage extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            "Let's Chill",
+            "Continue",
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
-              fontSize: 20,
+              fontSize: 16,
             ),
           ),
         ),
