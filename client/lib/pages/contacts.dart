@@ -32,6 +32,7 @@ class _ContactsPageState extends ConsumerState<ContactsPage> {
                 // box color
                 fillColor: Colors.grey.shade100,
                 filled: true,
+                hintText: 'Search',
                 prefixIcon:
                     Icon(Icons.search_outlined, color: Colors.blue[500]),
               ),
