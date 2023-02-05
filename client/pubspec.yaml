@@ -47,6 +47,9 @@ dependencies:
   flutter_local_notifications: ^13.0.0
   timezone: ^0.9.1
   rxdart: ^0.27.7
+  custom_info_window: ^1.0.1
+  clippy_flutter: ^1.1.1
+  screenshot: ^1.3.0
 
 dev_dependencies:
   flutter_test:

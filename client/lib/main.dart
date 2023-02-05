@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:netchill/constants/constants.dart';
 import 'package:netchill/pages/discover.dart';
+import 'package:netchill/pages/fighton.dart';
 import 'package:netchill/pages/profile.dart';
 import 'package:netchill/pages/sign_in.dart';
 import 'package:netchill/pages/contacts.dart';
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SignInPage(),
+      home: const HomePage(),
     );
   }
 }
@@ -38,7 +40,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   final pages = const [
     DiscoverPage(),
     ContactsPage(),
-    ProfilePage(),
+    ProfilePage(user: NetChillConstants.terryUser),
   ];
 
   @override

@@ -51,7 +51,7 @@ class UserAvatar extends StatelessWidget {
     }
 
     if (_hasPicture()) {
-      return CachedNetworkImageProvider(user.profilePic!);
+      return CachedNetworkImageProvider(user.profilePic);
     }
 
     return null;
@@ -59,16 +59,16 @@ class UserAvatar extends StatelessWidget {
 
   String _getInitials() {
     String s = '';
-    if (user.firstName != null && user.firstName!.isNotEmpty) {
-      s += user.firstName![0];
+    if (user.firstName.isNotEmpty) {
+      s += user.firstName[0];
     }
-    if (user.lastName != null && user.lastName!.isNotEmpty) {
-      s += user.lastName![0];
+    if (user.lastName.isNotEmpty) {
+      s += user.lastName[0];
     }
     return s;
   }
 
   bool _hasPicture() {
-    return user.profilePic != null && user.profilePic!.isNotEmpty;
+    return user.profilePic.isNotEmpty;
   }
 }
