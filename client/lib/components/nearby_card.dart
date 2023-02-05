@@ -11,15 +11,6 @@ class NearbyCard extends ConsumerWidget {
   final User user;
   final VoidCallback? onSendRequest;
 
-  final _sharedInterests = const [
-    'Photography',
-    'Art',
-    'Singing',
-    'Reading',
-    'Dancing',
-    'Movies',
-  ];
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
@@ -47,7 +38,7 @@ class NearbyCard extends ConsumerWidget {
     // return Container(color: Colors.white, height: 30);
     return FittedBox(
       fit: BoxFit.cover,
-      child: Image.network(user.profilePic!),
+      child: Image.network(user.profilePic),
     );
   }
 
@@ -73,7 +64,7 @@ class NearbyCard extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 4),
-          InterestsText(interests: _sharedInterests),
+          InterestsText(interests: user.interests),
           const Spacer(),
           Container(
             decoration: BoxDecoration(

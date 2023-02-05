@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:netchill/constants/constants.dart';
 import 'package:netchill/pages/discover.dart';
 import 'package:netchill/pages/profile.dart';
 import 'package:netchill/pages/sign_in.dart';
@@ -37,7 +38,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   final pages = const [
     DiscoverPage(),
     ContactsPage(),
-    ProfilePage(),
+    ProfilePage(user: NetChillConstants.terryUser),
   ];
 
   @override
