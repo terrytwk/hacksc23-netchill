@@ -48,12 +48,12 @@ class SignUpPage extends StatelessWidget {
               SizedBox(height: 35),
               MyTextFieldId(
                 controller: usernameController,
-                hintText: 'Email Address',
+                hintText: 'Email',
                 obscureText: false,
               ),
 
               // Password Textfield
-              SizedBox(height: 25),
+              SizedBox(height: 10),
               MyTextFieldPassword(
                 controller: passwordController,
                 hintText: 'Password',
@@ -61,7 +61,7 @@ class SignUpPage extends StatelessWidget {
               ),
 
               // Sign In Button
-              SizedBox(height: 45),
+              SizedBox(height: 20),
 
               MyButtonSignUp(
                 // need to work on button clicked -> verify the username & password
@@ -69,7 +69,7 @@ class SignUpPage extends StatelessWidget {
               ),
 
               // Don't Have an Account?
-              SizedBox(height: 45),
+              SizedBox(height: 25),
 
               RichText(
                 text: TextSpan(
@@ -84,8 +84,8 @@ class SignUpPage extends StatelessWidget {
                         text: " Sign In",
                         style: TextStyle(
                             color: Colors.blue.shade900,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => Navigator.of(context).push(
                                 MaterialPageRoute(

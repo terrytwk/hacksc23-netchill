@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:netchill/pages/discover.dart';
 import 'package:netchill/pages/profile.dart';
 import 'package:netchill/pages/sign_in.dart';
+import 'package:netchill/pages/contacts.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -33,10 +34,10 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   int _index = 0;
-  final pages = [
-    const DiscoverPage(),
-    Text('index 2'),
-    const ProfilePage(),
+  final pages = const [
+    DiscoverPage(),
+    ContactsPage(),
+    ProfilePage(),
   ];
 
   @override

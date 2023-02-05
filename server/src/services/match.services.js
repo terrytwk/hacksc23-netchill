@@ -28,6 +28,7 @@ const getMatches = async (id) => {
         select: {
           match: {
             select: {
+              id: true,
               users: {
                 where: {
                   user_id: {
@@ -43,7 +44,7 @@ const getMatches = async (id) => {
         }
       }
     }
-  }).then(matchSearch => matchSearch.matches.map(m => m.match.users[0].user))
+  }).then(matchSearch => matchSearch.matches.map(m => ({id: m.match.id, user: m.match.users[0].user})))
 }
 
 module.exports = { createMatch, getMatches };

@@ -6,6 +6,7 @@ const AuthRouter = require("./routes/authentication.routes");
 const ProfileRouter = require("./routes/profile.routes");
 const DiscoverRouter = require("./routes/discover.routes");
 const MatchRouter = require("./routes/match.routes");
+const ContactRouter = require("./routes/contact.routes");
 
 const app = express();
 app.use(express.json());
@@ -24,6 +25,7 @@ app.use("/api/v1/auth", AuthRouter);
 app.use("/api/v1/profile", ProfileRouter);
 app.use("/api/v1/discover", DiscoverRouter);
 app.use("/api/v1/match", MatchRouter);
+app.use("/api/v1/contact", ContactRouter);
 
 const port = process.env.PORT || 5001;
 

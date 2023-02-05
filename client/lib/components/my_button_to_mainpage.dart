@@ -18,7 +18,7 @@ class MyButtonMainpage extends StatelessWidget {
         );
       },
       child: Container(
-        padding: EdgeInsets.all(25),
+        padding: EdgeInsets.all(20),
         margin: EdgeInsets.symmetric(horizontal: 35),
         decoration: BoxDecoration(
           color: Colors.blue[900],
