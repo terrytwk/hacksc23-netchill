@@ -52,7 +52,7 @@ class _ContactsPageState extends ConsumerState<ContactsPage> {
   }
 
   Widget _buildRequests() {
-    final requests = ref.watch(requestsProvider);
+    final requests = ref.watch(nearbyProvider);
 
     return SliverFixedExtentList(
       itemExtent: 100,

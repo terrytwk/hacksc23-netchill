@@ -43,7 +43,7 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
             onMapCreated: _onMapCreated,
             initialCameraPosition: CameraPosition(
               target: _center,
-              zoom: 20,
+              zoom: 17,
             ),
           ),
           _buildBottomDrawer(),
