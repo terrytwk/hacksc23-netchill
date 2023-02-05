@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:netchill/components/chill_request.dart';
+import 'package:netchill/components/finding_avatar.dart';
 import 'package:netchill/components/nearby_card.dart';
 import 'package:netchill/components/person_info.dart';
 import 'package:netchill/components/user_avatar.dart';
@@ -131,6 +132,7 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
             offset: 65,
           ),
           _buildBottomDrawer(),
+          // const FindingAvatar(user: NetChillConstants.jonathanUser),
         ],
       ),
     );
