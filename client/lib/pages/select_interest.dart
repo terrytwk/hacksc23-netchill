@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:netchill/components/inserted_box.dart';
 import 'package:netchill/components/my_button_to_mainpage.dart';
 
@@ -9,6 +10,7 @@ class InterestPage extends StatefulWidget {
 
 class _InterestPageState extends State<InterestPage> {
   List<String> interests = [];
+  List<String> selectedInterests = [];
   List<bool> selected = [];
   void signUserIn() {}
   @override
@@ -41,7 +43,13 @@ class _InterestPageState extends State<InterestPage> {
 
   void toggleInterest(int index) {
     setState(() {
-      selected[index] = !selected[index];
+      if (selected[index]) {
+        selected[index] = false;
+        selectedInterests.remove(interests[index]);
+      } else {
+        selected[index] = true;
+        selectedInterests.add(interests[index]);
+      }
     });
   }
 
@@ -52,9 +60,35 @@ class _InterestPageState extends State<InterestPage> {
         title: Text('Select Your Interest'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(25),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
+            Container(
+              height: 80,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: interests
+                    .asMap()
+                    .entries
+                    .where((entry) => selected[entry.key])
+                    .map((entry) => Container(
+                          margin: EdgeInsets.all(10),
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Color.fromARGB(255, 150, 196, 255),
+                          ),
+                          child: Text(
+                            entry.value,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ))
+                    .toList(),
+              ),
+            ),
             Expanded(
               child: ListView.builder(
                 itemCount: interests.length,
@@ -104,24 +138,31 @@ class InterestBox extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.only(top: 20),
         child: Container(
-          height: 64,
-          width: double.infinity,
+          height: 50,
+          width: 150,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             color: selected ? Colors.blue : Colors.white,
             border: Border.all(
-              color: Color.fromARGB(255, 173, 181, 255),
+              color: Color.fromARGB(255, 148, 156, 223),
               width: 3,
             ),
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromARGB(255, 181, 227, 255),
+                offset: Offset(0.0, 3.0), //(x,y)
+                blurRadius: 5.0,
+              ),
+            ],
           ),
           child: Center(
             child: Text(
               title,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 18,
+                fontSize: 16,
                 color: selected ? Colors.white : Colors.black,
               ),
             ),
