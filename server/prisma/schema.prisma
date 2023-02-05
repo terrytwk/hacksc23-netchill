@@ -30,6 +30,8 @@ model User {
   career_tags UserToCareerTag[]
   hobby_tags UserToHobbyTag[]
   matches UserToMatch[]
+  contacts Contact[] @relation("UserContacts")
+  contactsOf Contact[]
 }
 
 // unused for now
@@ -99,11 +101,13 @@ model Category {
 
 model Contact {
   id Int @id @default(autoincrement())
-  relating_user Int
-  related_user Int
   notes String?
   contact_frequency ContactFrequency?
 
+  relating_user User @relation("UserContacts", fields: [relating_user_id], references: [id])
+  relating_user_id Int
+  related_user User @relation(fields: [related_user_id], references: [id])
+  related_user_id Int
   category Category? @relation(fields: [category_id], references: [id])
   category_id Int?
   match Match @relation(fields: [match_id], references: [id])
@@ -111,8 +115,9 @@ model Contact {
 }
 
 enum ContactFrequency {
+  ONE_WEEK
+  TWO_WEEKS
   ONE_MONTH
-  THREE_MONTHS
   SIX_MONTHS
   ONE_YEAR
 }

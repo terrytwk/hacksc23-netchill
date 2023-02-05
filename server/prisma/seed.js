@@ -210,8 +210,8 @@ async function main() {
   const contact1 = await prisma.contact.createMany({
     data: [
       {
-        relating_user: testUser.id,
-        related_user: asdfUser.id,
+        relating_user_id: testUser.id,
+        related_user_id: asdfUser.id,
         notes: "A great companion to invite to the next party",
         contact_frequency: "ONE_MONTH",
         category_id: socialCtg.id,
@@ -222,8 +222,8 @@ async function main() {
   const contact2 = await prisma.contact.createMany({
     data: [
       {
-        relating_user: asdfUser.id,
-        related_user: testUser.id,
+        relating_user_id: asdfUser.id,
+        related_user_id: testUser.id,
         notes: "First met at HackSC",
         match_id: match.id
       }
