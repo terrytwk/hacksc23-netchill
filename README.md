@@ -2,7 +2,7 @@
 🏆 Awarded 1st Place in Global Connections Vertical at HackSC 
 
 ## Demo
-Go check out our [Devpost](https://devpost.com/software/netchill) for details about our project!
+Go check out our [Devpost](https://devpost.com/software/shravel) for details about our project!
 
 **Click** image below ⬇️
 
